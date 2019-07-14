@@ -29,6 +29,7 @@ func main() {
 	}
 
 	for {
+		fmt.Println("try to Acquire")
 		conn, err := pool.Acquire()
 		if err != nil {
 			fmt.Printf("failed to acquire connection: %v\n", err)
@@ -40,6 +41,7 @@ func main() {
 
 		err = tryToSelect(conn)
 		if err != nil {
+			fmt.Println("close conn")
 			conn.Close()
 			pool.Release(conn)
 
@@ -52,6 +54,7 @@ func main() {
 
 		err = tryToInsert(conn)
 		if err != nil {
+			fmt.Println("close conn")
 			conn.Close()
 			pool.Release(conn)
 
